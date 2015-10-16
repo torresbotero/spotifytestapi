@@ -1,5 +1,6 @@
 package com.spotifytest.spotifytest;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -9,7 +10,12 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.spotifytest.models.Artist;
+import com.spotifytest.spotifytest.R;
+
 public class ArtistSearchActivity extends AppCompatActivity {
+
+    public static final String ARTIST_KEY = "com.spotifytest.models.artist";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,15 +23,6 @@ public class ArtistSearchActivity extends AppCompatActivity {
         setContentView(R.layout.activity_artist_search);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
     }
 
     @Override
@@ -48,5 +45,13 @@ public class ArtistSearchActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void goToViewArtist(Artist artist){
+        Intent intent = new Intent(this, ArtistViewActivity.class);
+        Bundle artistBundle = new Bundle();
+        artistBundle.putSerializable(ARTIST_KEY, artist);
+        intent.putExtras(artistBundle);
+        startActivity(intent);
     }
 }
